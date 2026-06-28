@@ -1,6 +1,12 @@
-export function PcbPanel() {
+import type { BenchPartTransform } from "../transforms"
+
+interface PcbPanelProps {
+  transform: BenchPartTransform
+}
+
+export function PcbPanel({ transform }: PcbPanelProps) {
   return (
-    <group position={[0.42, 0.38, 0]}>
+    <group position={transform.position} rotation={transform.rotation}>
       <mesh>
         <boxGeometry args={[2.55, 0.08, 1.16]} />
         <meshStandardMaterial color="#2f9c6b" roughness={0.65} />

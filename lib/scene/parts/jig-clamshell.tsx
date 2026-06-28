@@ -1,15 +1,14 @@
 import { MathUtils } from "three"
 
+import type { BenchPartTransform } from "../transforms"
+
 interface JigClamshellProps {
-  rotation: number
+  transform: BenchPartTransform
 }
 
-export function JigClamshell({ rotation }: JigClamshellProps) {
+export function JigClamshell({ transform }: JigClamshellProps) {
   return (
-    <group
-      position={[0, 0.18, 0]}
-      rotation={[0, MathUtils.degToRad(rotation), 0]}
-    >
+    <group position={transform.position} rotation={transform.rotation}>
       <mesh position={[0, 0.04, 0]}>
         <boxGeometry args={[3.2, 0.18, 1.45]} />
         <meshStandardMaterial color="#89939f" roughness={0.5} />

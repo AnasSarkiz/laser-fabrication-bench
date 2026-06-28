@@ -1,10 +1,9 @@
-import { MathUtils } from "three"
-
 import { BenchBase } from "./parts/bench-base"
 import { FeederWheels } from "./parts/feeder-wheels"
 import { JigClamshell } from "./parts/jig-clamshell"
 import { LaserHead } from "./parts/laser-head"
 import { PcbPanel } from "./parts/pcb-panel"
+import { getBenchTransforms } from "./transforms"
 
 interface PlaceholderBenchSceneProps {
   jigRotation: number
@@ -15,12 +14,24 @@ export function PlaceholderBenchScene({
   jigRotation,
   feederWheelRotation,
 }: PlaceholderBenchSceneProps) {
+  const transforms = getBenchTransforms({
+    jigRotationDegrees: jigRotation,
+    feederWheelRotationDegrees: feederWheelRotation,
+  })
+
   return (
-    <group rotation={[0, MathUtils.degToRad(-28), 0]}>
+    <group
+      position={transforms.scene.position}
+      rotation={transforms.scene.rotation}
+    >
       <BenchBase />
-      <JigClamshell rotation={jigRotation} />
-      <FeederWheels rotation={feederWheelRotation} />
-      <PcbPanel />
+      <JigClamshell transform={transforms.jig} />
+      <FeederWheels
+        baseTransform={transforms.feederWheelBase}
+        leftWheelTransform={transforms.feederWheelLeft}
+        rightWheelTransform={transforms.feederWheelRight}
+      />
+      <PcbPanel transform={transforms.pcb} />
       <LaserHead />
     </group>
   )

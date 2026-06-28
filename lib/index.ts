@@ -8,3 +8,12 @@ export {
   LaserFabricationBench,
   type LaserFabricationBenchProps,
 } from "./laser-fabrication-bench"
+export {
+  getBenchTransforms,
+  getFeederWheelTransforms,
+  getJigTransform,
+  getPcbTransform,
+  type BenchPartTransform,
+  type BenchTransforms,
+  type Vector3Tuple,
+} from "./scene/transforms"

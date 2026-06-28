@@ -1,19 +1,23 @@
-import { MathUtils } from "three"
+import type { BenchPartTransform } from "../transforms"
 
 interface FeederWheelsProps {
-  rotation: number
+  baseTransform: BenchPartTransform
+  leftWheelTransform: BenchPartTransform
+  rightWheelTransform: BenchPartTransform
 }
 
-export function FeederWheels({ rotation }: FeederWheelsProps) {
-  const wheelRotation = MathUtils.degToRad(rotation)
-
+export function FeederWheels({
+  baseTransform,
+  leftWheelTransform,
+  rightWheelTransform,
+}: FeederWheelsProps) {
   return (
-    <group position={[-2.55, 0.58, 0]}>
-      {[-0.62, 0.62].map((z) => (
+    <group>
+      {[leftWheelTransform, rightWheelTransform].map((transform) => (
         <mesh
-          key={z}
-          position={[0, 0, z]}
-          rotation={[MathUtils.degToRad(90), 0, wheelRotation]}
+          key={transform.position[2]}
+          position={transform.position}
+          rotation={transform.rotation}
         >
           <cylinderGeometry args={[0.44, 0.44, 0.28, 40]} />
           <meshStandardMaterial
@@ -23,7 +27,7 @@ export function FeederWheels({ rotation }: FeederWheelsProps) {
           />
         </mesh>
       ))}
-      <mesh position={[0, -0.22, 0]}>
+      <mesh position={baseTransform.position} rotation={baseTransform.rotation}>
         <boxGeometry args={[0.38, 0.2, 1.7]} />
         <meshStandardMaterial color="#64748b" roughness={0.45} />
       </mesh>
