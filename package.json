@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "type": "module",
   "module": "lib/index.ts",
-  "files": ["lib", "pages"],
+  "files": ["lib", "pages", "public"],
   "scripts": {
     "test": "bun test",
     "typecheck": "tsc --noEmit",

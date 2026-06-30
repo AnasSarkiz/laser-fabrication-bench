@@ -7,6 +7,7 @@ import {
   getJigTransform,
   getPcbTransform,
   helloLaserFabricationBench,
+  laserFabricationBenchModelParts,
   packageName,
 } from "../lib/index"
 import { expectedHelloMessage } from "./fixtures/hello-fixture"
@@ -21,6 +22,35 @@ test("returns the hello-world message", () => {
 
 test("exports the LaserFabricationBench component", () => {
   expect(typeof LaserFabricationBench).toBe("function")
+})
+
+test("lists separated GLB model parts", () => {
+  expect(
+    laserFabricationBenchModelParts.map((part) => ({
+      key: part.key,
+      path: part.path,
+    })),
+  ).toEqual([
+    { key: "base", path: "/models/base.glb" },
+    { key: "jig", path: "/models/jig.glb" },
+    { key: "pcb", path: "/models/Pcb.glb" },
+    { key: "feeder-wheel-left", path: "/models/feeder-wheel-left.glb" },
+    { key: "feeder-wheel-right", path: "/models/feeder-wheel-right.glb" },
+    {
+      key: "axlemount-motor-isolation",
+      path: "/models/axlemount_motor_isolation.x_t.glb",
+    },
+    { key: "motor-gear", path: "/models/moter_gear.glb" },
+  ])
+})
+
+test("separated GLB model parts include static layout positions", () => {
+  const nonBaseParts = laserFabricationBenchModelParts.filter(
+    (part) => part.key !== "base",
+  )
+
+  expect(nonBaseParts.every((part) => part.position.length === 3)).toBe(true)
+  expect(nonBaseParts.every((part) => part.position.some(Boolean))).toBe(true)
 })
 
 test("jig rotation changes when the prop changes", () => {

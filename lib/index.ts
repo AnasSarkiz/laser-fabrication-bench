@@ -9,6 +9,10 @@ export {
   type LaserFabricationBenchProps,
 } from "./laser-fabrication-bench"
 export {
+  laserFabricationBenchModelParts,
+  type LaserFabricationBenchModelPart,
+} from "./scene/model-manifest"
+export {
   getBenchTransforms,
   getFeederWheelTransforms,
   getJigTransform,
