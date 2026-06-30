@@ -52,7 +52,7 @@ export function LaserFabricationBenchModel() {
   ]
 
   return (
-    <Bounds fit clip observe margin={1.2}>
+    <Bounds fit clip margin={1.2}>
       <group>
         {loadedParts.map((part) => (
           <Clone key={part.key} object={part.scene} position={part.position} />
