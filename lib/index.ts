@@ -9,11 +9,18 @@ export {
   type LaserFabricationBenchProps,
 } from "./laser-fabrication-bench"
 export {
+  jigAssemblyPivot,
+  jigAssemblyModelPartKeys,
   laserFabricationBenchModelParts,
+  type LaserFabricationBenchModelPartKey,
   type LaserFabricationBenchModelPart,
 } from "./scene/model-manifest"
 export {
   getBenchTransforms,
+  getCadXAxisRotation,
+  getCadJigRotation,
+  getCadYAxisRotation,
+  getCadZAxisRotation,
   getFeederWheelTransforms,
   getJigTransform,
   getPcbTransform,

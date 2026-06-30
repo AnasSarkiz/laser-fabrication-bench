@@ -31,7 +31,7 @@ export function LaserFabricationBench({
         <ambientLight intensity={0.7} />
         <directionalLight intensity={1.2} position={[4, 6, 5]} />
         <Suspense>
-          <LaserFabricationBenchModel />
+          <LaserFabricationBenchModel jigRotation={jigRotation} />
         </Suspense>
         <OrbitControls makeDefault enablePan={false} />
       </Canvas>

@@ -80,6 +80,22 @@ export function getPcbTransform(
   }
 }
 
+export function getCadXAxisRotation(rotationDegrees: number): Vector3Tuple {
+  return [degreesToRadians(rotationDegrees), 0, 0]
+}
+
+export function getCadYAxisRotation(rotationDegrees: number): Vector3Tuple {
+  return [0, degreesToRadians(rotationDegrees), 0]
+}
+
+export function getCadZAxisRotation(rotationDegrees: number): Vector3Tuple {
+  return [0, 0, degreesToRadians(rotationDegrees)]
+}
+
+export function getCadJigRotation(jigRotationDegrees: number): Vector3Tuple {
+  return getCadXAxisRotation(jigRotationDegrees)
+}
+
 export function getBenchTransforms({
   jigRotationDegrees,
   feederWheelRotationDegrees,

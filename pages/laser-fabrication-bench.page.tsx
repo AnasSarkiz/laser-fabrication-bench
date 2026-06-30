@@ -44,8 +44,8 @@ export default function LaserFabricationBenchPage() {
           <span>Jig rotation: {jigRotation} deg</span>
           <input
             data-testid="jig-rotation-slider"
-            max={45}
-            min={-45}
+            max={360}
+            min={0}
             onChange={(event) =>
               setJigRotation(Number(event.currentTarget.value))
             }

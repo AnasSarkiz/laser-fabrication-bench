@@ -3,10 +3,16 @@ import { expect, test } from "bun:test"
 import {
   LaserFabricationBench,
   getBenchTransforms,
+  getCadXAxisRotation,
+  getCadJigRotation,
+  getCadYAxisRotation,
+  getCadZAxisRotation,
   getFeederWheelTransforms,
   getJigTransform,
   getPcbTransform,
   helloLaserFabricationBench,
+  jigAssemblyPivot,
+  jigAssemblyModelPartKeys,
   laserFabricationBenchModelParts,
   packageName,
 } from "../lib/index"
@@ -53,6 +59,20 @@ test("separated GLB model parts include static layout positions", () => {
   expect(nonBaseParts.every((part) => part.position.some(Boolean))).toBe(true)
 })
 
+test("jig assembly includes parts held by the rotating jig", () => {
+  expect(jigAssemblyModelPartKeys).toEqual([
+    "jig",
+    "pcb",
+    "feeder-wheel-left",
+    "feeder-wheel-right",
+    "motor-gear",
+  ])
+})
+
+test("jig assembly has one shared rotation pivot", () => {
+  expect(jigAssemblyPivot).toEqual([-0.11, -0.132, -0.105])
+})
+
 test("jig rotation changes when the prop changes", () => {
   const neutralJigTransform = getJigTransform(0)
   const rotatedJigTransform = getJigTransform(45)
@@ -85,6 +105,18 @@ test("PCB feed position changes predictably from feeder wheel rotation", () => {
   expect(halfTurnPcbTransform.position[0]).toBeCloseTo(
     startingPcbTransform.position[0] + 0.36,
   )
+})
+
+test("CAD jig rotation changes predictably from jig rotation", () => {
+  expect(getCadJigRotation(0)).toEqual([0, 0, 0])
+  expect(getCadJigRotation(45)[0]).toBeCloseTo(Math.PI / 4)
+  expect(getCadJigRotation(360)[0]).toBeCloseTo(Math.PI * 2)
+})
+
+test("CAD axis rotation helpers rotate around one explicit axis", () => {
+  expect(getCadXAxisRotation(90)).toEqual([Math.PI / 2, 0, 0])
+  expect(getCadYAxisRotation(90)).toEqual([0, Math.PI / 2, 0])
+  expect(getCadZAxisRotation(90)).toEqual([0, 0, Math.PI / 2])
 })
 
 test("bench transforms use explicit prop unit names", () => {

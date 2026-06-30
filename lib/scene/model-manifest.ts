@@ -7,7 +7,7 @@ export const laserFabricationBenchModelParts = [
   {
     key: "jig",
     path: "/models/jig.glb",
-    position: [0, -0.15, -0.1],
+    position: [0, -0.15, -0.1039],
   },
   {
     key: "pcb",
@@ -38,3 +38,16 @@ export const laserFabricationBenchModelParts = [
 
 export type LaserFabricationBenchModelPart =
   (typeof laserFabricationBenchModelParts)[number]
+
+export type LaserFabricationBenchModelPartKey =
+  LaserFabricationBenchModelPart["key"]
+
+export const jigAssemblyPivot = [-0.11, -0.132, -0.105] as const
+
+export const jigAssemblyModelPartKeys = [
+  "jig",
+  "pcb",
+  "feeder-wheel-left",
+  "feeder-wheel-right",
+  "motor-gear",
+] as const satisfies readonly LaserFabricationBenchModelPartKey[]
