@@ -5,6 +5,7 @@ import {
   getBenchTransforms,
   getCadXAxisRotation,
   getCadJigRotation,
+  getCadPcbFeedOffset,
   getCadYAxisRotation,
   getCadZAxisRotation,
   getFeederWheelTransforms,
@@ -117,6 +118,12 @@ test("CAD axis rotation helpers rotate around one explicit axis", () => {
   expect(getCadXAxisRotation(90)).toEqual([Math.PI / 2, 0, 0])
   expect(getCadYAxisRotation(90)).toEqual([0, Math.PI / 2, 0])
   expect(getCadZAxisRotation(90)).toEqual([0, 0, Math.PI / 2])
+})
+
+test("CAD PCB feed offset translates over X axis", () => {
+  expect(getCadPcbFeedOffset(0)).toEqual([0, 0, 0])
+  expect(getCadPcbFeedOffset(180)[0]).toBeCloseTo(0.05)
+  expect(getCadPcbFeedOffset(360)[0]).toBeCloseTo(0.1)
 })
 
 test("bench transforms use explicit prop unit names", () => {

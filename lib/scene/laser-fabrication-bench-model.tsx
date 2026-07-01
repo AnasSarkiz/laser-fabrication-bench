@@ -8,7 +8,11 @@ import {
   jigAssemblyModelPartKeys,
   laserFabricationBenchModelParts,
 } from "./model-manifest"
-import { getCadXAxisRotation, type Vector3Tuple } from "./transforms"
+import {
+  getCadPcbFeedOffset,
+  getCadXAxisRotation,
+  type Vector3Tuple,
+} from "./transforms"
 
 type LoadedModelPart = LaserFabricationBenchModelPart & {
   scene: Object3D
@@ -20,10 +24,12 @@ const jigAssemblyModelPartKeySet = new Set<LaserFabricationBenchModelPartKey>(
 
 interface LaserFabricationBenchModelProps {
   jigRotation: number
+  feederWheelRotation: number
 }
 
 export function LaserFabricationBenchModel({
   jigRotation,
+  feederWheelRotation,
 }: LaserFabricationBenchModelProps) {
   const base = useGLTF("/models/base.glb")
   const jig = useGLTF("/models/jig.glb")
@@ -65,6 +71,7 @@ export function LaserFabricationBenchModel({
     },
   ]
   const jigXAxisRotation = getCadXAxisRotation(jigRotation)
+  const pcbFeedOffset = getCadPcbFeedOffset(feederWheelRotation)
   const staticParts = loadedParts.filter(
     (part) => !jigAssemblyModelPartKeySet.has(part.key),
   )
@@ -83,7 +90,7 @@ export function LaserFabricationBenchModel({
             <Clone
               key={part.key}
               object={part.scene}
-              position={getPositionRelativeToPivot(part.position)}
+              position={getJigAssemblyPartPosition(part, pcbFeedOffset)}
             />
           ))}
         </group>
@@ -97,6 +104,23 @@ function getPositionRelativeToPivot(position: Vector3Tuple): Vector3Tuple {
     position[0] - jigAssemblyPivot[0],
     position[1] - jigAssemblyPivot[1],
     position[2] - jigAssemblyPivot[2],
+  ]
+}
+
+function getJigAssemblyPartPosition(
+  part: LaserFabricationBenchModelPart,
+  pcbFeedOffset: Vector3Tuple,
+): Vector3Tuple {
+  const position = getPositionRelativeToPivot(part.position)
+
+  if (part.key !== "pcb") {
+    return position
+  }
+
+  return [
+    position[0] + pcbFeedOffset[0],
+    position[1] + pcbFeedOffset[1],
+    position[2] + pcbFeedOffset[2],
   ]
 }
 
