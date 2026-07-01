@@ -98,12 +98,12 @@ export function getCadJigRotation(jigRotationDegrees: number): Vector3Tuple {
 }
 
 export function getCadPcbFeedOffset(
-  feederWheelRotationDegrees: number,
+  feederWheelRotationPercent: number,
 ): Vector3Tuple {
   const feedPosition =
-    (feederWheelRotationDegrees / 360) * CAD_PCB_FEED_DISTANCE_PER_REVOLUTION
+    (feederWheelRotationPercent / 100) * CAD_PCB_FEED_DISTANCE_PER_REVOLUTION
 
-  return [feedPosition, 0, 0]
+  return [0, 0, -feedPosition]
 }
 
 export function getBenchTransforms({

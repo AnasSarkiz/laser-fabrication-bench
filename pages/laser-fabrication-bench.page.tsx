@@ -56,11 +56,11 @@ export default function LaserFabricationBenchPage() {
           />
         </label>
         <label style={{ display: "grid", gap: 8, fontSize: 14 }}>
-          <span>Feeder wheel rotation: {feederWheelRotation} deg</span>
+          <span>Feeder wheel rotation: {feederWheelRotation}%</span>
           <input
             data-testid="feeder-wheel-rotation-slider"
-            max={360}
-            min={0}
+            max={100}
+            min={-100}
             onChange={(event) =>
               setFeederWheelRotation(Number(event.currentTarget.value))
             }
