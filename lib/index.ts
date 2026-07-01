@@ -19,6 +19,7 @@ export {
   getBenchTransforms,
   getCadXAxisRotation,
   getCadJigRotation,
+  getCadPcbFeedOffset,
   getCadYAxisRotation,
   getCadZAxisRotation,
   getFeederWheelTransforms,

@@ -23,6 +23,7 @@ const FEEDER_WHEEL_LEFT_POSITION: Vector3Tuple = [-2.55, 0.58, -0.62]
 const FEEDER_WHEEL_RIGHT_POSITION: Vector3Tuple = [-2.55, 0.58, 0.62]
 const PCB_BASE_POSITION: Vector3Tuple = [0.42, 0.38, 0]
 const PCB_FEED_DISTANCE_PER_REVOLUTION = 0.72
+const CAD_PCB_FEED_DISTANCE_PER_REVOLUTION = 0.1
 
 export function getJigTransform(
   jigRotationDegrees: number,
@@ -94,6 +95,15 @@ export function getCadZAxisRotation(rotationDegrees: number): Vector3Tuple {
 
 export function getCadJigRotation(jigRotationDegrees: number): Vector3Tuple {
   return getCadXAxisRotation(jigRotationDegrees)
+}
+
+export function getCadPcbFeedOffset(
+  feederWheelRotationDegrees: number,
+): Vector3Tuple {
+  const feedPosition =
+    (feederWheelRotationDegrees / 360) * CAD_PCB_FEED_DISTANCE_PER_REVOLUTION
+
+  return [feedPosition, 0, 0]
 }
 
 export function getBenchTransforms({
