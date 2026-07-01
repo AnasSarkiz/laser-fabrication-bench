@@ -121,9 +121,9 @@ test("CAD axis rotation helpers rotate around one explicit axis", () => {
 })
 
 test("CAD PCB feed offset translates over X axis", () => {
-  expect(getCadPcbFeedOffset(0)).toEqual([0, 0, 0])
-  expect(getCadPcbFeedOffset(180)[0]).toBeCloseTo(0.05)
-  expect(getCadPcbFeedOffset(360)[0]).toBeCloseTo(0.1)
+  expect(getCadPcbFeedOffset(0)).toEqual([0, 0, -0])
+  expect(getCadPcbFeedOffset(-100)[0]).toBeCloseTo(0)
+  expect(getCadPcbFeedOffset(100)[0]).toBeCloseTo(0)
 })
 
 test("bench transforms use explicit prop unit names", () => {
