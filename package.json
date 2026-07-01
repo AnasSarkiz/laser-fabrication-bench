@@ -10,8 +10,9 @@
     "format": "biome format . --write",
     "format:check": "biome format .",
     "start": "cosmos",
-    "build": "cosmos-export",
-    "build:site": "cosmos-export"
+    "build": "vite build",
+    "build:site": "vite build",
+    "cosmos:export": "cosmos-export"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.4",

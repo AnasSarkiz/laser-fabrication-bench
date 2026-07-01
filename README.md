@@ -90,18 +90,24 @@ Start the Cosmos preview:
 bun run start
 ```
 
+Build the deployable Vite site in `dist`:
+
+```sh
+bun run build
+```
+
+Export the Cosmos fixture site when needed:
+
+```sh
+bun run cosmos:export
+```
+
 Run checks:
 
 ```sh
 bun run typecheck
 bun test
 bun run format:check
-```
-
-Build the static Cosmos site:
-
-```sh
-bun run build
 ```
 
 ## Package Entry
